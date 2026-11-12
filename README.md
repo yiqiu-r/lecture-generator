@@ -44,4 +44,10 @@ HTML 成品再跑 check-html-threecolor.py / check-html-solid.py；PDF 日志 gr
 
 ## 许可
 
-本 skill 规则与脚本供个人学习与非商业使用。pdf-teaching/original_maki.tex 为第三方模板（B 站「Maki 的完美算术教室」），允许商用与二次开发，署名请勿移除。
+**个人学习与非商业使用**（详见 [LICENSE](LICENSE)）。
+
+- 可以：自用、修改、非商业分发，保留署名与许可文件即可。
+- 不可以：任何形式的商业使用、转售、付费分发、去除署名。
+- 产物（讲义 / 索引 / PDF）归使用者所有，但同样不得商业使用，除非另行取得授权。
+
+`pdf-teaching/original_maki.tex` 为第三方模板（B 站「Maki 的完美算术教室」），**不适用上述许可**：按其自身条款，允许商用与二次开发，署名请勿移除。
