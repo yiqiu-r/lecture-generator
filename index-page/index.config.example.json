@@ -1,0 +1,70 @@
+{
+  "title": "某书《某某讲义》定理·定义总索引",
+  "header": {
+    "h1": "某某《某某讲义》— 定理 · 定义 · 引理 · 推论 总索引",
+    "sub": "某某《书名（第 N 版）》第 X 至 Y 章（章名 / 章名 / 章名）。中文全量陈述（条件与公式按原书完整译出）+ 原书页码；公式与字体全部内嵌，无需联网。",
+    "searchPlaceholder": "输入关键词搜索，如：Banach、谱半径、5.2.7（回车跳第一个结果）"
+  },
+  "footer": "中文陈述按原书完整内容译出（条件与公式与原书一致，叙述文字适度精简）；公式为 LaTeX，由 MathJax 预渲染为 CHTML，字体已内嵌。",
+  "out": "../../../成品/<项目>/讲义·总索引.html",
+  "pages": {
+    "5.1": "p.1–6",
+    "5.2": "p.6–21"
+  },
+  "enChapter": {
+    "五": "Banach Algebras",
+    "六": "Unbounded Operators"
+  },
+  "enSection": {
+    "5.1": "Algebraic Preliminaries",
+    "5.2": "Banach Algebras"
+  },
+  "chapterFiles": {},
+  "types": [
+    "def",
+    "thm",
+    "prop",
+    "lemma",
+    "cor",
+    "ex",
+    "remark"
+  ],
+  "pendingSections": {
+    "五": [
+      {
+        "num": "5.6",
+        "name": "（原书有、讲义未写的小节名）",
+        "en": "Section Title",
+        "page": "p.61–66",
+        "status": "讲义暂未收录",
+        "note": "这一节讲义还没写，补写后重新生成即自动并入。"
+      }
+    ]
+  },
+  "pendingChapters": [
+    {
+      "cn": "七",
+      "cname": "（未写成讲义的原书章名）",
+      "en": "Chapter Title",
+      "page": "p.172–272",
+      "status": "讲义待写",
+      "sections": [
+        {
+          "num": "7.1",
+          "name": "节名",
+          "page": "p.173–188",
+          "subs": [
+            "1.1 子节名（p.173）",
+            "1.2 子节名（p.176）"
+          ]
+        },
+        {
+          "num": "7.2",
+          "name": "节名",
+          "page": "p.189–208",
+          "subs": []
+        }
+      ]
+    }
+  ]
+}

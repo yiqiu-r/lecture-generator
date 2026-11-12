@@ -1,0 +1,357 @@
+:root{
+  --ink:#1f2328;
+  --ink-2:#4a5361;
+  --ink-3:#6b7480;
+  --paper:#ffffff;
+  --canvas:#f7f4f5;
+  --line:#e3e6ea;
+  --accent:#c8506e;
+  --radius:10px;
+}
+
+*{box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  margin:0;
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:16px;
+  line-height:1.9;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+.wrap{
+  display:flex;
+  gap:28px;
+  max-width:1240px;
+  margin:0 auto;
+  padding:32px 24px 80px;
+  align-items:flex-start;
+}
+
+/* ---------- 目录 ---------- */
+.toc{
+  position:sticky;
+  top:24px;
+  flex:0 0 232px;
+  max-height:calc(100vh - 48px);
+  overflow-y:auto;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:16px 12px 18px;
+  font-size:13.5px;
+  line-height:1.65;
+}
+.toc-head{
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:2px;
+  color:var(--ink-3);
+  padding:0 8px 10px;
+  margin-bottom:6px;
+  border-bottom:1px solid var(--line);
+}
+.toc a{
+  display:block;
+  padding:4px 8px;
+  color:var(--ink-2);
+  text-decoration:none;
+  border-radius:6px;
+  border-left:2px solid transparent;
+  transition:background .15s,color .15s;
+}
+.toc a:hover{background:#eef2f8;color:var(--accent);}
+.toc-lv2{font-weight:700;color:var(--ink)!important;margin-top:8px;}
+.toc-lv3{padding-left:20px;font-size:13px;color:var(--ink-3)!important;}
+.toc .katex{font-size:1em;}
+
+/* ---------- 正文 ---------- */
+.doc{
+  flex:1 1 auto;
+  min-width:0;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:40px 52px 64px;
+  box-shadow:0 1px 2px rgba(16,24,40,.04),0 8px 28px -18px rgba(16,24,40,.18);
+}
+
+.doc h1{
+  font-size:29px;
+  line-height:1.45;
+  margin:0 0 8px;
+  padding-bottom:18px;
+  border-bottom:2.5px solid var(--accent);
+  letter-spacing:.5px;
+}
+.doc h2{
+  font-size:22px;
+  margin:52px 0 18px;
+  padding:6px 0 6px 14px;
+  border-left:5px solid var(--accent);
+  letter-spacing:.3px;
+}
+.doc h3{
+  font-size:18px;
+  margin:36px 0 14px;
+  color:#111826;
+}
+.doc h4{
+  font-size:16.5px;
+  margin:28px 0 10px;
+  color:#243042;
+}
+.doc h4::before{
+  content:"◆";
+  color:var(--accent);
+  font-size:11px;
+  margin-right:8px;
+  vertical-align:2px;
+}
+
+.doc p{margin:12px 0;}
+
+.doc strong{color:#0f1a2b;font-weight:700;}
+
+.doc em{font-style:normal;color:#8a4b00;background:#fff6e0;padding:0 3px;border-radius:3px;}
+
+.doc code{
+  font-family:"Cascadia Mono",Consolas,"Courier New",monospace;
+  font-size:.9em;
+  background:#f2f4f7;
+  border:1px solid #e3e6ea;
+  border-radius:4px;
+  padding:1px 5px;
+}
+
+.doc blockquote{
+  margin:14px 0;
+  padding:10px 16px;
+  background:#f8fafc;
+  border-left:3px solid #c4cdd8;
+  border-radius:0 8px 8px 0;
+  color:var(--ink-2);
+}
+
+.doc ul,.doc ol{margin:12px 0;padding-left:26px;}
+.doc li{margin:6px 0;}
+.doc li::marker{color:var(--accent);}
+
+/* ---------- 表格 ---------- */
+.tablewrap{margin:18px 0;overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);}
+.doc table{border-collapse:collapse;width:100%;font-size:14.4px;line-height:1.7;}
+.doc th{
+  background:#f4f7fb;color:#0f1a2b;font-weight:700;text-align:left;
+  padding:9px 12px;border-bottom:1px solid #d8dfe8;white-space:nowrap;
+}
+.doc td{padding:8px 12px;border-bottom:1px solid #eef1f5;vertical-align:top;}
+.doc tbody tr:last-child td{border-bottom:none;}
+.doc tbody tr:nth-child(even){background:#fafbfd;}
+
+/* ---------- 公式 ---------- */
+.mathblock{
+  margin:16px 0;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:2px 0;
+}
+.katex-display{
+  margin:0 !important;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:2px 0;
+}
+.katex{font-size:1.03em;}
+/* 行内公式以斜体变量（如 σ、λ）结尾时，去掉 KaTeX 为数学衔接预留的 italic correction，
+   否则与紧跟的中文/连字符之间会出现多余空隙 */
+.doc .katex .base > .mord.mathnormal:last-child{margin-right:0 !important;}
+.katex-err{color:#b42318;background:#fee4e2;padding:2px 6px;border-radius:4px;font-family:monospace;font-size:13px;}
+
+/* ---------- 分色框（Maki 风格：实色标题栏 + 淡色盒身） ---------- */
+.box{
+  --boxpx:20px;
+  margin:20px 0;
+  border:1px solid var(--bd);
+  border-radius:var(--radius);
+  background:var(--bg);
+  padding:0 var(--boxpx) 16px;
+  overflow:hidden;
+  scroll-margin-top:12px;   /* 从索引页跳转定位时不贴顶 */
+}
+.box-title{
+  font-weight:700;
+  font-size:15.5px;
+  color:#fff;
+  background:var(--ac);
+  margin:0 calc(-1 * var(--boxpx)) 12px;
+  padding:7px var(--boxpx);
+  line-height:1.75;
+}
+.box-title::before{
+  content:"";
+  display:inline-block;
+  width:7px;height:7px;
+  border-radius:50%;
+  background:rgba(255,255,255,.85);
+  margin-right:9px;
+  vertical-align:2px;
+}
+.box-tag{
+  display:inline-block;
+  font-size:11.5px;
+  font-weight:600;
+  letter-spacing:1px;
+  color:#fff;
+  background:rgba(255,255,255,.18);
+  border-radius:5px;
+  padding:2px 8px;
+  margin-right:8px;
+  vertical-align:1px;
+}
+.box-body>*:first-child{margin-top:0;}
+.box-body>*:last-child{margin-bottom:0;}
+.box-body p{margin:9px 0;}
+
+/* 色板对齐 Maki 讲义模板：定理家族=玫红 定义=巧克力橙 例子=钢蓝
+   解释=紫 注意/小结=青绿 证明/旁注/评注=中性灰 */
+.box-def    {--ac:#d2691e;--bd:#f2dcc5;--bg:#fffaf0;--ac2:#8a4512;}
+.box-thm    {--ac:#c8506e;--bd:#f8d3de;--bg:#fff0f5;--ac2:#963c53;}
+.box-lemma  {--ac:#c8506e;--bd:#f8d3de;--bg:#fff0f5;--ac2:#963c53;}
+.box-prop   {--ac:#c8506e;--bd:#f8d3de;--bg:#fff0f5;--ac2:#963c53;}
+.box-cor    {--ac:#c8506e;--bd:#f8d3de;--bg:#fff0f5;--ac2:#963c53;}
+.box-proof  {--ac:#6e7781;--bd:#e2e5e9;--bg:#f7f8fa;--ac2:#3d444d;}
+.box-sol    {--ac:#6e7781;--bd:#e2e5e9;--bg:#f7f8fa;--ac2:#3d444d;}
+.box-ex     {--ac:#4682b4;--bd:#cfe2f3;--bg:#f0f8ff;--ac2:#2f5a7d;}
+.box-notice {--ac:#128a80;--bd:#c5e8e4;--bg:#eefaf8;--ac2:#0c6059;}
+.box-explain{--ac:#6a5aa0;--bd:#dcd6f0;--bg:#f5f3fc;--ac2:#4b3f77;}
+.box-aside  {--ac:#8b949e;--bd:#e2e5e9;--bg:#f6f8fa;--ac2:#4a5361;}
+.box-hw     {--ac:#bf3989;--bd:#f5c6e0;--bg:#fff2f9;--ac2:#8c1d63;}
+.box-remark {--ac:#8b949e;--bd:#e2e5e9;--bg:#f6f8fa;--ac2:#4a5361;}
+
+/* sol（解答）仍是大盒；proof 已并入夹注族，正文跟默认字号 */
+.box-sol .box-body{font-size:15.4px;}
+
+/* ---------- 非定理盒轻化（定义 / 例子 / 注意） ----------
+   定理家族（thm / lemma / prop / cor）保留实色玫红标题栏，是全页唯一的强强调。
+   其余彩色盒改为「淡底 + 同色系深字」的弱标题栏，块体同步收小，
+   让定理自然浮到最前，页面也不至于满屏实色条。 */
+.box-def,
+.box-ex,
+.box-notice{--boxpx:17px;margin:15px 0;padding-bottom:13px;}
+.box-def>.box-title,
+.box-ex>.box-title,
+.box-notice>.box-title{
+  background:var(--bd);
+  color:var(--ac2);
+  font-size:14.6px;
+  margin-bottom:9px;
+  padding:5px var(--boxpx);
+}
+.box-def>.box-title::before,
+.box-ex>.box-title::before,
+.box-notice>.box-title::before{background:currentColor;opacity:.5;width:6px;height:6px;}
+.box-def>.box-title .box-tag,
+.box-ex>.box-title .box-tag,
+.box-notice>.box-title .box-tag{
+  color:var(--ac2);
+  background:rgba(255,255,255,.55);
+}
+
+/* 嵌套在框内的子框：收紧外边距、去掉左色条，避免视觉过重 */
+.box .box{--boxpx:15px;margin:13px 0;border-radius:8px;}
+.box .box .box-title{font-size:14.6px;margin-bottom:7px;}
+
+/* ---------- 夹注式注解（explain / aside / notice / remark） ----------
+   分层原则：定理、定义、例子是「盒子」（主角）；白话注解是「旁白」，不得与定理抢视觉。
+   做法对齐模板 B 的 .explain —— 去掉整框与实色标题栏，只保留左侧竖线 + 淡底 + 行内小标题。
+   颜色再降一档（竖线用色板淡化版、标题用中间调），块体收小，注解退到最底层。 */
+.box.box-explain{--ac:#c3bce0;--ac2:#7d72a8;--bg:#fbfaff;}
+.box.box-notice {--ac:#a5d6d0;--ac2:#37897f;--bg:#f6fcfb;}
+.box.box-aside,
+.box.box-remark,
+.box.box-proof{--ac:#d7dce2;--ac2:#7d8692;--bg:#fbfcfd;}
+.box.box-explain,
+.box.box-aside,
+.box.box-notice,
+.box.box-remark,
+.box.box-proof{
+  border:0;
+  border-left:2.5px solid var(--ac);
+  border-radius:0 5px 5px 0;
+  padding:0 12px 6px;
+  margin:9px 0 12px;
+}
+.box.box-explain>.box-title,
+.box.box-aside>.box-title,
+.box.box-notice>.box-title,
+.box.box-remark>.box-title,
+.box.box-proof>.box-title{
+  background:none;
+  color:var(--ac2);
+  margin:0;
+  padding:7px 0 1px;
+  font-size:13.6px;
+  font-weight:700;
+  line-height:1.65;
+}
+.box.box-explain>.box-title::before,
+.box.box-aside>.box-title::before,
+.box.box-notice>.box-title::before,
+.box.box-remark>.box-title::before,
+.box.box-proof>.box-title::before{display:none;}
+.box.box-explain>.box-title .box-tag,
+.box.box-aside>.box-title .box-tag,
+.box.box-notice>.box-title .box-tag,
+.box.box-remark>.box-title .box-tag,
+.box.box-proof>.box-title .box-tag{
+  color:var(--ac2);
+  background:transparent;
+  font-size:11px;
+  padding:0 6px 0 0;
+}
+.box.box-explain .box-body p,
+.box.box-aside .box-body p,
+.box.box-notice .box-body p,
+.box.box-remark .box-body p,
+.box.box-proof .box-body p{margin:5px 0;}
+/* 夹注嵌在盒子里时再收一档，避免与外层正文混淆 */
+.box .box.box-explain,
+.box .box.box-aside,
+.box .box.box-notice,
+.box .box.box-remark,
+.box .box.box-proof{margin:8px 0 10px;padding:0 10px 5px;}
+
+
+/* ---------- 窄屏 ---------- */
+@media (max-width:980px){
+  .wrap{flex-direction:column;padding:18px 12px 60px;gap:16px;}
+  .toc{position:static;flex:1 1 auto;width:100%;max-height:none;}
+  .doc{padding:26px 20px 48px;}
+  .doc h1{font-size:23px;}
+  .doc h2{font-size:19px;}
+}
+
+/* ---------- 打印 ----------
+   排版两原则（用户 2026-10-09 定）：
+   第一原则：不留大面积空白 —— 盒子允许跨页，只保护「断了很难看」的小单元；
+   第二原则：标题尽量在每页最前面 —— 标题禁止孤悬页尾（break-after:avoid） */
+@media print{
+  body{background:#fff;}
+  .wrap{display:block;max-width:none;padding:0;}
+  .toc{display:none;}
+  .doc{border:none;box-shadow:none;border-radius:0;padding:0;}
+
+  /* ① 不留空白：长盒（证明/解释/评注）正常跨页续排 */
+  .box{break-inside:auto;}
+  .box-title{break-after:avoid;}   /* 盒标题不与盒正文分居两页 */
+  .mathblock{break-inside:avoid;}  /* 单个 display 公式不跨页 */
+  .tablewrap{break-inside:avoid;}  /* 表格不跨页（最长约十行，不致产生大空白） */
+
+  /* ② 标题在页首：标题后面至少跟得下两行正文 */
+  .doc h1,.doc h2,.doc h3{break-after:avoid;}
+}

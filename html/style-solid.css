@@ -1,0 +1,168 @@
+:root {
+  --main-blue: #143d78;
+  --explain-color: #5b6b8c;
+  --bg: #fafbfd;
+  --panel-bg: #f0f4fa;
+  --border: #c9d6e8;
+  --accent: #1f5fbf;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #1c2733;
+  font-family: "Source Han Serif SC", "Noto Serif SC", "Songti SC", "SimSun", serif;
+  font-size: 17px;
+  line-height: 1.85;
+}
+#toc {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 280px;
+  overflow-y: auto;
+  background: #eef2f8;
+  border-right: 1px solid var(--border);
+  padding: 20px 12px 40px;
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-size: 13.5px;
+}
+#toc .toc-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--main-blue);
+  margin: 0 0 6px 8px;
+  line-height: 1.5;
+}
+#toc .toc-sub { font-size: 11.5px; color: #7a8699; margin: 0 0 14px 8px; }
+#toc a {
+  display: block;
+  color: #2f3d52;
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 5px;
+  margin: 1px 0;
+  line-height: 1.45;
+}
+#toc a:hover { background: #dbe4f0; color: var(--accent); }
+#toc a.lv1 { font-weight: 700; color: var(--main-blue); margin-top: 12px; }
+#toc a.lv2 { padding-left: 20px; }
+#toc a.lv3 { padding-left: 34px; font-size: 12.5px; color: #4a5870; }
+main {
+  margin-left: 280px;
+  max-width: 920px;
+  padding: 36px 48px 90px;
+}
+h1.book-title {
+  font-size: 30px;
+  color: var(--main-blue);
+  border-bottom: 3px solid var(--main-blue);
+  padding-bottom: 12px;
+  margin: 10px 0 6px;
+}
+p.book-meta { color: #6a7689; font-size: 14px; margin: 0 0 26px; font-family: "Microsoft YaHei", sans-serif; }
+h2.chapter {
+  font-size: 26px;
+  color: var(--main-blue);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 8px;
+  margin: 52px 0 22px;
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+}
+h3.section {
+  font-size: 21px;
+  color: var(--accent);
+  margin: 40px 0 16px;
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+}
+h4.subsection {
+  font-size: 17.5px;
+  color: #1e4a86;
+  margin: 26px 0 12px;
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+}
+p.body { color: var(--main-blue); margin: 10px 0; text-align: justify; }
+.explain {
+  color: var(--explain-color);
+  background: rgba(91,107,140,0.07);
+  border-left: 3px solid #9fb0cc;
+  padding: 6px 12px;
+  margin: 6px 0 12px 0;
+  border-radius: 0 6px 6px 0;
+  font-size: 15.5px;
+  line-height: 1.75;
+  text-align: justify;
+}
+.formula {
+  text-align: center;
+  margin: 12px 0;
+  font-size: 17px;
+}
+.thmbox {
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--accent);
+  border-radius: 8px;
+  padding: 14px 20px;
+  margin: 16px 0;
+}
+.thmbox .thm-title {
+  font-weight: 700;
+  color: var(--main-blue);
+  font-family: "Microsoft YaHei", sans-serif;
+  margin-bottom: 6px;
+}
+.thmbox p { margin: 6px 0; }
+.thmbox .thm-item { margin: 4px 0; padding-left: 8px; }
+.tag {
+  display: inline-block;
+  font-family: "Microsoft YaHei", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 4px;
+  padding: 1px 9px;
+  margin-right: 8px;
+  vertical-align: 2px;
+}
+.tag.def { background: #1f5fbf; }
+.tag.thm { background: #0e4d92; }
+.tag.prop { background: #1a6b8a; }
+.tag.lem { background: #4a7ba6; }
+.tag.ex { background: #7a6a9e; }
+.tag.rem { background: #8a6d3b; }
+.tag.quest { background: #b0452c; }
+.tag.cor { background: #2c6e49; }
+ul, ol { color: var(--main-blue); }
+li { margin: 5px 0; text-align: justify; }
+.backtop {
+  display: block;
+  margin: 30px 0 10px;
+  font-family: "Microsoft YaHei", sans-serif;
+  font-size: 13px;
+  color: var(--accent);
+  text-decoration: none;
+}
+hr.sep { border: none; border-top: 1px dashed var(--border); margin: 30px 0; }
+@media (max-width: 900px) {
+  #toc { position: static; width: auto; max-height: 40vh; border-right: none; border-bottom: 1px solid var(--border); }
+  main { margin-left: 0; padding: 20px 18px 60px; }
+}
+
+/* ---- 公式：KaTeX 预渲染（构建期已渲成静态标记，此处只管间距与超宽滚动） ---- */
+.mathblock {
+  margin: 12px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2px 0;
+  color: var(--main-blue);
+}
+.katex-display { margin: 0 !important; overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+.katex { font-size: 1.03em; }
+/* 行内公式以斜体变量结尾时去掉 italic correction，避免与紧跟的标点出现空档 */
+.katex .base > .mord.mathnormal:last-child { margin-right: 0 !important; }
+/* ---- 附加：表格（模板原有正文未用到，后续章节可能用） ---- */
+table { border-collapse: collapse; margin: 14px 0; font-size: 15.5px; color: var(--main-blue); }
+th, td { border: 1px solid var(--border); padding: 6px 12px; text-align: left; }
+th { background: var(--panel-bg); font-family: "Microsoft YaHei", sans-serif; }

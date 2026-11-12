@@ -1,0 +1,135 @@
+% !TEX program = xelatex
+% =============================================================
+%  抽象代数讲义（合订本）
+%  按 Jacobson, Basic Algebra I (2nd ed.) 的章节顺序重排
+%  = 群论 I · 环论 I · 多项式理论 · 域论 · 群论 II · 模论 · Galois 理论
+% =============================================================
+
+\PassOptionsToPackage{fontset=fandol}{ctex}
+\documentclass[color=blue, mode=fancy, math=newtx, chinesefont=ctexfont, lang=cn]{elegantbook}
+
+% ---------------- 封面信息 ----------------
+\title{抽象代数讲义\\[2pt] \small 群论 · 环论 · 多项式 · 域论 · 模论 · Galois 理论}
+\subtitle{合订本}
+\author{抽象代数委员会}
+\institute{Maki's Lab}
+\date{September 20, 2026}
+\version{2.0}
+\cover{assets/cover_1694.jpeg}
+\logo{assets/cover_1695.jpeg}
+\extrainfo{" 九万里风鹏正举。风休住，蓬舟吹取三山去。" ——【宋】李清照}
+
+% 封面色带：与原书一致的青色
+\definecolor{coverlinecolor}{RGB}{31,177,170}
+
+% ---------------- 数学宏 ----------------
+\usepackage{amsmath, amssymb, mathtools, bm}
+\usepackage{esint}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{graphicx, caption}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\R}{\mathbb{R}}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Supp}{Supp}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Hom}{Hom}
+
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\leq}{\leqslant}
+
+% fancy 模式下没有 amsthm，证明末尾也不打方框；正文里残留的 \qedhere 直接吞掉
+\providecommand{\qedhere}{}
+
+\numberwithin{equation}{chapter}
+
+% 中英混排时长行不易断，给一点额外伸缩空间，避免个别行溢出版心
+\setlength{\emergencystretch}{3em}
+
+% ---------------- 题注名 ----------------
+\renewcommand{\notename}{注}
+\renewcommand{\examplename}{例题}
+\renewcommand{\conclusionname}{结论}
+
+% 注：与定理族同色的行内标签（去掉原 class 的红色指示符号）
+\renewenvironment{note}{%
+  \par\noindent\textbf{\color{second}\notename\;}\citshape}{\par}
+
+% 结论：允许带一个可选标题
+\renewenvironment{conclusion}[1][]{%
+  \par\noindent\textbf{\color{third}\conclusionname\ifblank{#1}{}{（#1）}\;}\citshape}{\par}
+
+% 说明：行内标签 + 楷体正文
+\newcommand{\explanationname}{说明}
+\newenvironment{explanation}[1][]{%
+  \par\noindent\textbf{\color{third}\explanationname\ifblank{#1}{}{（#1）}\;}\citshape}{\par}
+
+% 旁注（动机 / 思路 / 补充）：同样式，标签不同
+\newcommand{\asidename}{旁注}
+\newenvironment{aside}[1][]{%
+  \par\noindent\textbf{\color{third}\asidename\ifblank{#1}{}{（#1）}\;}\citshape}{\par}
+
+% 提醒：独立分色框，用于强调"不要漏掉的条件"之类的短结论
+\newenvironment{notice}[1][]{\begin{note}[#1]}{\end{note}}
+
+% 证明：允许带一个可选说明（如「证法一」）
+\renewenvironment{proof}[1][]{%
+  \par\noindent\textbf{\color{second}\proofname\ifblank{#1}{}{（#1）}\;}\color{black!90}\cfs}{\par}
+
+% 例题：加一个空格，读起来不挤
+\renewenvironment{example}[1][]{%
+  \refstepcounter{exam}%
+  \par\noindent\textbf{\color{main}\examplename\ \theexam\ifblank{#1}{}{\ （#1）}}\ \rmfamily}{\par\ignorespacesafterend}
+
+% 目录深度：与原书一致（部分 / 章 / 节）
+\setcounter{tocdepth}{1}
+
+% 目录中「章」条目只显示编号（章标题页仍显示「第 X 章」），与原书一致。
+% elegantbook 在 \AtBeginDocument 里把 \NR@chapter 的 \numberline{\thechapter}
+% 换成了 \numberline{\xchaptertitle}，这里在它之后再换回来。
+% 而 elegantbook 的 \appendix 又会重做同一次替换，其失败分支写成未定义的 \fail；
+% 那一步此时必然失败（因为已经换回来了），补一个空的 \fail 让失败分支静默。
+\providecommand{\fail}{}
+\makeatletter
+\AtBeginDocument{\patchcmd{\NR@chapter}{\numberline{\xchaptertitle}}{\numberline{\thechapter}}{}{}}
+\makeatother
+
+\begin{document}
+
+\maketitle
+
+\frontmatter
+\tableofcontents
+
+%%PREFACE%%
+
+\mainmatter
+
+%%BODY%%
+
+\end{document}

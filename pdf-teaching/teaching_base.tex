@@ -1,0 +1,487 @@
+\documentclass[a4paper,12pt,oneside,fontset=none]{ctexbook}
+
+
+
+% ========================================
+%  ↓↓↓ 讲义信息设置（修改讲义时只需改这里） ↓↓↓
+% ========================================
+
+\newcommand{\LectureNotesTitle}{Maki梦幻数学讲义LaTeX模板}
+\newcommand{\AuthorInfo}{B站@Maki的完美算术教室}
+
+\newcommand{\MakeTitlePage}{%
+    \begin{titlepage}
+        \centering
+        \vspace*{5cm}
+        
+        {\fontsize{48pt}{60pt}\selectfont\heavykaishu \color{LogicColor} Maki梦幻数学讲义LaTeX模板\par}
+        
+        \vfill
+        
+        {\LARGE \kaishu 
+        Maki 的完美算术教室
+        \\[0.8em]
+        \Large
+        B 站\ \ \ 知名 Up 主
+        \\
+        }
+    
+        \vspace{2.3cm}
+        
+        {\Large \kaishu
+        学\ 海\ 悠\ 悠\quad 研\ 途\ 漫\ 漫
+        \\[0.3em]
+        {\Large 以此薄卷赠诸生共勉}
+        \\[2.5em]
+        
+        二\ 〇\ 二\ 六\ 年\ 三\ 月 
+        }
+        
+        \vspace{2cm}
+    \end{titlepage}%
+}
+
+
+% ========================================
+%  ↑↑↑ 讲义信息设置（修改讲义时只需改这里） ↑↑↑
+% ========================================
+
+
+
+
+
+
+
+
+
+
+
+
+% ======================================
+%  ↓↓↓ 模板核心设置（可根据实际需求修改） ↓↓↓
+% ======================================
+
+
+\usepackage[a4paper, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{mathpazo}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{newunicodechar}
+\usepackage{etoolbox}
+
+\usepackage{esint}
+\usepackage{multirow}
+\usepackage{diagbox}
+\usepackage{needspace}
+\usepackage{tikz}
+\usepackage{bm}
+\usetikzlibrary{arrows.meta}
+\usepackage{makecell}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{capt-of}
+\usepackage{graphicx,caption,subcaption}
+\renewcommand{\thesubfigure}{\Alph{subfigure}}
+\usepackage{tikz-3dplot}
+\tdplotsetmaincoords{70}{110}
+\usepackage{booktabs}
+\usetikzlibrary{patterns}
+\usepgfplotslibrary{fillbetween}
+
+
+\pgfplotsset{
+    % 让x轴标签出现在箭头最右侧
+    every axis x label/.style={
+        at={(ticklabel* cs:1)},
+        anchor=west,
+    },
+    % 让y轴标签出现在箭头最上方
+    every axis y label/.style={
+        at={(ticklabel* cs:1)},
+        anchor=south,
+    }
+}
+
+
+\setlength{\headheight}{26pt}
+
+\newunicodechar{。}{.\ \ignorespaces}
+\newunicodechar{，}{,\ \ignorespaces}
+\newunicodechar{：}{:\ \ignorespaces}
+\newunicodechar{；}{;\ \ignorespaces}
+\newunicodechar{？}{?\ \ignorespaces}
+\newunicodechar{！}{!\ \ignorespaces}
+\newunicodechar{（}{\ (\ignorespaces}
+\newunicodechar{）}{)\ \ignorespaces}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\sep}{\text{ · \ }}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\leq}{\leqslant}
+
+
+\AddToHook{env/pmatrix/before}{\linespread{1.2}\selectfont}
+\AddToHook{env/bmatrix/before}{\linespread{1.2}\selectfont}
+\AddToHook{env/vmatrix/before}{\linespread{1.2}\selectfont}
+\AddToHook{env/dcases/before}{\linespread{1.25}\selectfont}
+\AddToHook{env/enumerate/before}{\linespread{1.4}\selectfont}
+\AddToHook{env/enumerate/before}
+{\vrule width 0em height 0cm depth 0.5cm}
+
+\AddToHook{env/pmatrix/after}
+{\vrule width 0em height 0cm depth 1.5cm}
+\AddToHook{env/bmatrix/after}
+{\vrule width 0em height 0em depth 1.5em}
+\AddToHook{env/vmatrix/after}
+{\vrule width 0em height 0em depth 1.5em}
+\AddToHook{env/dcases/after}
+{\vrule width 0em height 2em depth 2em}
+
+
+\let\olddfrac\dfrac
+\renewcommand{\dfrac}[2]{
+    \olddfrac{#1\vrule width 0pt height 1.15em depth 0em}{#2\vrule width 0pt height 0em depth 0.6em}
+}
+
+\let\oldlim\lim
+\renewcommand{\lim}{\displaystyle\oldlim}
+\let\oldint\int
+\renewcommand{\int}{\displaystyle{\vrule width 0pt height 0em depth 0em}\oldint}
+\let\oldiint\iint
+\renewcommand{\iint}{\displaystyle{\vrule width 0pt height 0em depth 0em}\oldiint}
+\let\oldiiint\iiint
+\renewcommand{\iiint}{\displaystyle{\vrule width 0pt height 0em depth 0em}\oldiiint}
+\let\oldoint\oint
+\renewcommand{\oint}{\displaystyle{\vrule width 0pt height 1.5em depth 1.5em}\oldoint}
+\let\oldoiint\oiint
+\renewcommand{\oiint}{\displaystyle{\vrule width 0pt height 1.5em depth 1.5em}\oldoiint}
+\let\oldsum\sum
+\renewcommand{\sum}{\displaystyle\oldsum}
+
+
+\setmainfont{TeX Gyre Pagella}
+
+% 中文字体：优先 Noto CJK（Overleaf 上有）；若本机没装，自动退回 TeX Live 自带的 Fandol。
+% 文件名形式（.otf）走 kpathsea 查找，不依赖系统字体库，因此一定能命中。
+\IfFontExistsTF{Noto Serif CJK SC}{
+    \setCJKmainfont[
+        BoldFont = Noto Serif CJK SC Bold,
+        ItalicFont = Noto Serif CJK SC Light
+    ]{Noto Serif CJK SC}
+}{
+    \setCJKmainfont[
+        BoldFont = FandolSong-Bold.otf,
+        ItalicFont = FandolKai-Regular.otf
+    ]{FandolSong-Regular.otf}
+}
+
+\IfFontExistsTF{Noto Sans CJK SC}{
+    \setCJKsansfont[
+        BoldFont = Noto Sans CJK SC Bold
+    ]{Noto Sans CJK SC}
+}{
+    \setCJKsansfont[
+        BoldFont = FandolHei-Bold.otf
+    ]{FandolHei-Regular.otf}
+}
+
+\newCJKfontfamily\kaishu{FandolKai-Regular}
+\newCJKfontfamily\heavykaishu{FandolKai-Regular}[AutoFakeBold = 10]
+
+\definecolor{LogicColor}{RGB}{200, 80, 110}
+\definecolor{LogicBg}{RGB}{255, 240, 245}
+\definecolor{DefColor}{RGB}{210, 105, 30}
+\definecolor{DefBg}{RGB}{255, 250, 240}
+\definecolor{ExColor}{RGB}{70, 130, 180}
+\definecolor{ExBg}{RGB}{240, 248, 255}
+\definecolor{NoteColor}{RGB}{34, 139, 34}
+\definecolor{MainText}{RGB}{20, 20, 20}
+% --- 新增第4色「解释」(紫) 与第5色「结论」(青) ---
+\definecolor{ExpColor}{RGB}{106, 90, 160}
+\definecolor{ExpBg}{RGB}{245, 243, 252}
+\definecolor{ConclColor}{RGB}{18, 138, 128}
+\definecolor{ConclBg}{RGB}{238, 250, 248}
+\color{MainText}
+
+% --- 新增题型辅助命令 ---
+\newcommand{\fillin}[1][3cm]{\,\underline{\hspace{#1}}\,}
+\newcommand{\selectbracket}{\unskip\nolinebreak\quad \raisebox{0.7pt}[0pt][0pt]{\mbox{$(\qquad)$}}\par}
+% -----------------------
+
+\ctexset{
+    chapter = {
+        format = \centering,
+        nameformat = \fontsize{40pt}{50pt}\selectfont\heavykaishu\color{LogicColor},
+        titleformat = \fontsize{40pt}{50pt}\selectfont\heavykaishu\color{LogicColor},
+        aftername = \hspace{1.8em},
+        beforeskip = 10pt,
+        afterskip = 55pt,
+    },
+    section = {
+        format = \centering\LARGE\bfseries\color{MainText},
+        beforeskip = 24pt,
+        afterskip = 27pt,
+    }
+}
+
+\tcbset{
+    commonbox/.style={
+        enhanced,
+        fonttitle=\bfseries\large,
+        attach boxed title to top left={xshift=5mm, yshift*=-\tcboxedtitleheight/2},
+        boxed title style={
+            frame hidden,
+            opacityback=1,
+            rounded corners,
+            arc=4pt,
+            top=1mm, bottom=1mm, left=2mm, right=2mm
+        },
+        boxrule=0pt, frame hidden,
+        sharp corners=downhill, rounded corners, arc=10pt,
+        drop fuzzy shadow=black!15!white,
+        left=8mm, right=5mm, top=3mm, bottom=5mm,
+        middle=1em,
+        before skip=1.7em, after skip=1.2em,
+        fontupper=\linespread{1.7}\selectfont
+    }
+}
+
+\newtcolorbox{thmBox}[3][]{
+  commonbox,
+  colback=LogicBg,
+  colbacktitle=LogicColor,
+  before title={\refstepcounter{theorem}}, 
+  title={#2 \thetheorem\ifstrempty{#3}{}{（#3）}},
+  #1
+}
+
+
+\newcounter{theorem}[chapter]
+\renewcommand{\thetheorem}{\thechapter.\arabic{theorem}}
+
+\newenvironment{theorem}[1][]{\begin{thmBox}{定理}{#1}}{\end{thmBox}}
+\newenvironment{lemma}[1][]{\begin{thmBox}{引理}{#1}}{\end{thmBox}}
+\newenvironment{proposition}[1][]{\begin{thmBox}{命题}{#1}}{\end{thmBox}}
+\newenvironment{corollary}[1][]{\begin{thmBox}{推论}{#1}}{\end{thmBox}}
+\newenvironment{property}[1][]{\begin{thmBox}{性质}{#1}}{\end{thmBox}}
+
+\newtcolorbox{defBox}[3][]{
+    commonbox, colback=DefBg, colbacktitle=DefColor,
+    before title={\refstepcounter{theorem}},
+  title={#2 \thetheorem\ifstrempty{#3}{}{（#3）}},
+  #1
+}
+
+\newcounter{definition}[chapter]
+\renewcommand{\thedefinition}{\thechapter.\arabic{definition}}
+
+\newenvironment{definition}[1][]{\begin{defBox}{定义}{#1}}{\end{defBox}}
+\newenvironment{axiom}[1][]{\begin{defBox}{公理}{#1}}{\end{defBox}}
+
+\newtcolorbox{exBox}[3][]{
+    commonbox, colback=ExBg, colbacktitle=ExColor,
+    before title={\refstepcounter{theorem}},
+    title={#2 \thetheorem\ifstrempty{#3}{}{（#3）}}, #1
+}
+
+\newtcolorbox{longexBox}[3][]{
+    breakable, commonbox, colback=ExBg, colbacktitle=ExColor,
+    before title={\refstepcounter{theorem}},
+    title={#2 \thetheorem\ifstrempty{#3}{}{（#3）}}, #1
+}
+
+\newcounter{example}[chapter]
+\renewcommand{\theexample}{\thechapter.\arabic{example}}
+
+\newenvironment{example}[1][]{\begin{exBox}{例题}{#1}}{\end{exBox}}
+
+\newenvironment{longexample}[1][]{\begin{longexBox}{例题}{#1}}{\end{longexBox}}
+
+
+\newenvironment{exercise}[1][]{\begin{exBox}{练习}{#1}}{\end{exBox}}
+
+% --- 第4色：解释盒（紫） ---
+\newtcolorbox{expBox}[3][]{
+    commonbox, colback=ExpBg, colbacktitle=ExpColor,
+    before title={\refstepcounter{theorem}},
+    title={#2 \thetheorem\ifstrempty{#3}{}{（#3）}}, #1
+}
+
+\newtcolorbox{longexpBox}[3][]{
+    breakable, commonbox, colback=ExpBg, colbacktitle=ExpColor,
+    before title={\refstepcounter{theorem}},
+    title={#2 \thetheorem\ifstrempty{#3}{}{（#3）}}, #1
+}
+
+\newenvironment{explanation}[1][]{\begin{expBox}{解释}{#1}}{\end{expBox}}
+\newenvironment{longexplanation}[1][]{\begin{longexpBox}{解释}{#1}}{\end{longexpBox}}
+
+% --- 第5色：结论盒（青） ---
+\newtcolorbox{conclBox}[3][]{
+    commonbox, colback=ConclBg, colbacktitle=ConclColor,
+    before title={\refstepcounter{theorem}},
+    title={#2 \thetheorem\ifstrempty{#3}{}{（#3）}}, #1
+}
+
+\newenvironment{conclusion}[1][]{\begin{conclBox}{结论}{#1}}{\end{conclBox}}
+
+\newtcolorbox{realexamBox}[2][]{
+    commonbox, colback=ExBg, colbacktitle=ExColor,
+    title={真题\ \ifstrempty{#2}{}{（#2）}}, #1
+}
+
+\newtcolorbox{longrealexamBox}[2][]{
+    breakable, commonbox, colback=ExBg, colbacktitle=ExColor,
+    title={真题\ \ifstrempty{#2}{}{（#2）}}, #1
+}
+
+\newenvironment{realexam}[1][]
+{%\clearpage
+\begin{realexamBox}{#1}}{\end{realexamBox}
+%\clearpage
+}
+
+\newenvironment{longrealexam}[1][]
+{%\clearpage
+\begin{longrealexamBox}{#1}}{\end{longrealexamBox}
+%\clearpage
+}
+
+
+
+\newenvironment{note}{
+    \par\vspace{0.5em}\noindent
+    \textbf{\color{NoteColor} 注：}
+}{
+    \par\vspace{0.5em}
+}
+
+\renewenvironment{proof}[1][]{
+    \par\vspace{0.5em}\noindent
+    \textbf{\color{LogicColor} 证明\ifstrempty{#1}{}{（#1）}：}
+}{
+    \hfill \textcolor{LogicColor}{\rule{0.6em}{0.6em}} \par
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \kaishu \LectureNotesTitle}
+\fancyhead[R]{\small \kaishu \AuthorInfo}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{LogicColor}\leaders\hrule height \headrulewidth\hfill}}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[L]{\small \kaishu \LectureNotesTitle}
+    \fancyhead[R]{\small \kaishu \AuthorInfo}
+    \fancyfoot[C]{\thepage}
+    \renewcommand{\headrulewidth}{0.5pt}
+    \renewcommand{\headrule}{\hbox to\headwidth{\color{LogicColor}\leaders\hrule height \headrulewidth\hfill}}
+}
+
+% --- 新增：目录可点击 + PDF 书签 + 元信息（原模板没有） ---
+\usepackage[unicode,colorlinks=true,linkcolor=LogicColor,citecolor=ExColor,urlcolor=NoteColor,bookmarksnumbered=true,bookmarksopen=true]{hyperref}
+\hypersetup{
+    pdftitle={\LectureNotesTitle},
+    pdfauthor={\AuthorInfo},
+    pdfcreator={XeLaTeX + ctexbook},
+}
+
+\numberwithin{equation}{chapter}
+
+
+% ======================================
+%  ↑↑↑ 模板核心设置（可根据实际需求修改） ↑↑↑
+% ======================================
+
+
+
+
+
+
+
+\begin{document}
+
+\frontmatter
+
+% 封面：文字改文件顶部的 \MakeTitlePage
+\MakeTitlePage
+
+% ===== 前言（不需要就把本章删掉）=====
+\chapter*{前言}
+在这里写前言。
+
+% ===== 目录（不需要就把这一行删掉）=====
+\tableofcontents
+
+\mainmatter
+
+%==========================================================
+\chapter{在这里写第一章标题}
+%==========================================================
+
+\section{在这里写小节标题}
+
+\begin{definition}[可选标题]
+定义内容。可选标题会排成「定义 1.1（可选标题）」。
+\end{definition}
+
+\begin{theorem}[可选标题]
+定理内容。
+\end{theorem}
+
+\begin{proof}
+证明内容。结尾会自动补一个玫红方块。也可以写成 \textbackslash begin\{proof\}[补充说明]。
+\end{proof}
+
+\begin{explanation}
+解释内容（紫色盒）。用来写「为什么这样想」「这一步的动机」这类白话解读。
+\end{explanation}
+
+\begin{conclusion}
+结论内容（青色盒）。一小节的收束性陈述。
+\end{conclusion}
+
+\begin{note}
+补充说明（无边框，绿色「注：」引导）。
+\end{note}
+
+\begin{example}
+例题题面。解答写在盒子外面。
+\end{example}
+
+\textbf{解.} 解答内容。 \hfill $\square$
+
+\begin{longexample}
+需要跨页的长例题题面。
+\tcblower
+\textbf{解.} 解答写在这里，整盒可跨页。
+\end{longexample}
+
+\begin{realexam}[2019 数学一]
+真题题面（方括号里填出处，不编号）。
+\end{realexam}
+
+% ---------- 环境速查（全部可用） ----------
+%   逻辑类（玫红）：theorem  lemma  proposition  corollary  property
+%   定义类（橙）  ：definition  axiom
+%   例题类（钢蓝）：example  longexample  exercise  realexam  longrealexam
+%   解释类（紫）  ：explanation  longexplanation
+%   结论类（青）  ：conclusion
+%   其他          ：note   proof
+%
+%   长内容一律用带 long 前缀的版本（内部 breakable，可跨页）。
+%   example 盒只含题面；题解同框用 longexample + \tcblower。
+%
+% ---------- 自定义命令 ----------
+%   \R  \sep  \fillin[4cm]  \selectbracket  \kaishu  \heavykaishu
+%
+% ---------- 绘图 ----------
+%   tikz / tikz-3dplot / pgfplots(axis) / booktabs 表
+
+\end{document}

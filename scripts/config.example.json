@@ -1,0 +1,21 @@
+{
+  "out": "_src_ALL.html",
+  "index": "_part_index.html",
+  "head_from": "_src_P1.html",
+  "title": "多尺度随机系统 · 四篇论文精读讲义（单文件版）",
+  "toc_title": "多尺度随机系统<br>四篇论文精读讲义",
+  "toc_sub": "单文件版 · 总目录 + 4 篇逐节精读",
+  "lang": "zh-CN",
+  "index_toc": [
+    { "lv": "lv1", "href": "p0-top", "text": "总目录与阅读顺序" },
+    { "lv": "lv2", "href": "p0-order", "text": "一、建议阅读顺序" },
+    { "lv": "lv2", "href": "p0-papers", "text": "二、四篇讲义" },
+    { "lv": "lv2", "href": "p0-notation", "text": "三、统一记号速查" }
+  ],
+  "papers": [
+    { "src": "_src_P1.html", "pfx": "p1", "label": "讲义 1 · 奇异系数的快慢随机系统（Xie 2022）" },
+    { "src": "_src_P2.html", "pfx": "p2", "label": "讲义 2 · 多尺度随机系统的渐近行为（中文综述）" },
+    { "src": "_src_P3.html", "pfx": "p3", "label": "讲义 3 · Hölder 系数平均化（Röckner–Sun–Xie）" },
+    { "src": "_src_P4.html", "pfx": "p4", "label": "讲义 4 · 非自治多尺度系统（Wang–Xia–Xie–Yang）" }
+  ]
+}

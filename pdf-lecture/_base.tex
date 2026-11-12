@@ -1,0 +1,275 @@
+%!TEX program = xelatex
+%==========================================================
+%  泛函分析讲义 · 中文数学讲义版式（自用）
+%==========================================================
+\documentclass[a4paper,11pt,oneside,fontset=none,linespread=1.16]{ctexbook}
+
+% ---------- 页面 ----------
+\usepackage[a4paper,left=2.1cm,right=2.1cm,top=2.1cm,bottom=2.0cm,
+            headsep=0.65cm,footskip=0.9cm]{geometry}
+
+\usepackage{fancyhdr}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{mathrsfs}          % \mathscr（花体 B、N 一类）；缺它会报 Undefined control sequence
+% 数学字体：Computer Modern（XeLaTeX 默认，CMMI/CMR/CMSY/CMEX）。
+% 2026-11-04 定版：不再加载 mathpazo——PazoMath 属 Palatino 家族，希腊字母与
+% HTML 版（MathJax TeX / KaTeX_Math）差异明显；改用 CM 后两边字形同族。
+% 正文西文仍由下方 \setmainfont{TeX Gyre Pagella} 指定，不受此处影响。
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{etoolbox}
+\usepackage{adjustbox}
+\usepackage{bm}
+\usepackage{enumitem}
+
+\setlist[itemize]{topsep=3pt,itemsep=1pt,parsep=0pt,partopsep=0pt,leftmargin=1.7em}
+\setlist[enumerate]{topsep=3pt,itemsep=1pt,parsep=0pt,partopsep=0pt,leftmargin=1.9em}
+
+% ---------- 讲义信息（换章时改这里） ----------
+\newcommand{\DocMainTitle}{泛函分析讲义}
+\newcommand{\DocSubTitle}{第五章\quad Banach 代数}
+\newcommand{\DocSource}{张恭庆、郭懋正《泛函分析讲义（第二版）》下册}
+\newcommand{\DocDate}{二〇二六年十一月}
+\newcommand{\ShortTitle}{泛函分析讲义}
+
+% ---------- 字体 ----------
+\setmainfont{TeX Gyre Pagella}
+\IfFontExistsTF{Noto Serif CJK SC}{
+    \setCJKmainfont[
+        BoldFont = Noto Serif CJK SC Bold,
+        ItalicFont = Noto Serif CJK SC Light
+    ]{Noto Serif CJK SC}
+}{
+    \setCJKmainfont[
+        BoldFont = FandolSong-Bold.otf,
+        ItalicFont = FandolKai-Regular.otf
+    ]{FandolSong-Regular.otf}
+}
+\IfFontExistsTF{Noto Sans CJK SC}{
+    \setCJKsansfont[
+        BoldFont = Noto Sans CJK SC Bold
+    ]{Noto Sans CJK SC}
+}{
+    \setCJKsansfont[
+        BoldFont = FandolHei-Bold.otf
+    ]{FandolHei-Regular.otf}
+}
+\newCJKfontfamily\kaishu{FandolKai-Regular}
+
+% ---------- 颜色 ----------
+\definecolor{MainText}{RGB}{25,25,25}
+\definecolor{ThmColor}{RGB}{200,80,110}
+\definecolor{ThmBg}{RGB}{253,246,248}
+\definecolor{DefColor}{RGB}{200,100,30}
+\definecolor{DefBg}{RGB}{254,249,243}
+\definecolor{ExColor}{RGB}{70,130,180}
+\definecolor{ExBg}{RGB}{244,248,252}
+\definecolor{ExpColor}{RGB}{106,90,160}
+\definecolor{ExpBg}{RGB}{246,244,251}
+% 正文内"后补内容"的标注色（深蓝，区别于例题的钢蓝 70,130,180）
+\definecolor{AddColor}{RGB}{30,79,148}
+\definecolor{ConclColor}{RGB}{18,138,128}
+\definecolor{ConclBg}{RGB}{241,249,248}
+\color{MainText}
+
+\newcommand{\R}{\mathbb{R}}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\leq}{\leqslant}
+
+% ---------- 标题层级 ----------
+\ctexset{
+    chapter = {
+        format = \centering,
+        titleformat = \fontsize{22pt}{27pt}\selectfont\bfseries\color{ThmColor},
+        beforeskip = 2pt,
+        afterskip = 24pt,
+    },
+    section = {
+        format = \raggedright\Large\bfseries\color{MainText},
+        beforeskip = 16pt,
+        afterskip = 9pt,
+    },
+    subsection = {
+        format = \raggedright\large\bfseries\color{MainText},
+        beforeskip = 12pt,
+        afterskip = 6pt,
+    },
+    subsubsection = {
+        format = \raggedright\normalsize\bfseries\color{MainText},
+        beforeskip = 10pt,
+        afterskip = 4pt,
+    }
+}
+
+% ---------- 盒子：大盒（定理族 / 定义 / 例题） ----------
+\tcbset{
+    bigbox/.style={
+        enhanced,
+        breakable,
+        boxrule=0pt,
+        sharp corners,
+        left=4.0mm, right=3.0mm, top=1.6mm, bottom=2.0mm,
+        toptitle=1.0mm, bottomtitle=1.0mm,
+        coltitle=white,
+        fonttitle=\bfseries\normalsize,
+        fontupper=\linespread{1.26}\selectfont,
+        before skip=0.85em, after skip=0.55em,
+    },
+    % 夹注（解释 / 结论）：左侧一条色条，不起标题带
+    noteinline/.style={
+        enhanced,
+        breakable,
+        boxrule=0pt,
+        sharp corners,
+        left=3.2mm, right=2.6mm, top=1.2mm, bottom=1.3mm,
+        fontupper=\small\linespread{1.20}\selectfont,
+        parskip=0.35em,          % 夹注内多段之间留气口，否则几段挤成一块
+        before skip=0.48em, after skip=0.32em,
+    }
+}
+
+\newtcolorbox{thmBox}[3][]{
+    bigbox, colback=ThmBg, colframe=ThmColor,
+    left=4.6mm, top=1.9mm, bottom=2.3mm,
+    toptitle=1.25mm, bottomtitle=1.25mm,
+    fontupper=\normalsize\linespread{1.26}\selectfont,
+    fonttitle=\bfseries\large,
+    title={#2\ #3}, #1
+}
+\newtcolorbox{defBox}[3][]{
+    bigbox, colback=DefBg, colframe=DefColor,
+    title={#2\ #3}, #1
+}
+\newtcolorbox{exBox}[3][]{
+    bigbox, colback=ExBg, colframe=ExColor,
+    title={#2\ #3}, #1
+}
+
+\newenvironment{theorem}[1][]{\begin{thmBox}{定理}{#1}}{\end{thmBox}}
+\newenvironment{lemma}[1][]{\begin{thmBox}{引理}{#1}}{\end{thmBox}}
+\newenvironment{proposition}[1][]{\begin{thmBox}{命题}{#1}}{\end{thmBox}}
+\newenvironment{corollary}[1][]{\begin{thmBox}{推论}{#1}}{\end{thmBox}}
+\newenvironment{definition}[1][]{\begin{defBox}{定义}{#1}}{\end{defBox}}
+\newenvironment{example}[1][]{\begin{exBox}{例题}{#1}\setlength{\parskip}{0.4em}}{\end{exBox}}
+
+% ---------- 盒子：补证（淡底深字，弱标题栏——不跟定理族抢注意力） ----------
+\definecolor{SuppColor}{RGB}{150,105,40}
+\definecolor{SuppBg}{RGB}{253,250,242}
+\definecolor{SuppTitleBg}{RGB}{245,234,210}
+\newtcolorbox{suppBox}[3][]{
+    bigbox, colback=SuppBg, colframe=SuppColor,
+    coltitle=SuppColor, colbacktitle=SuppTitleBg,
+    title={#2\ #3}, #1
+}
+\newenvironment{supplement}[1][]{\begin{suppBox}{补证}{#1}}{\end{suppBox}}
+
+% ---------- 盒子：注（石板蓝，与定理/定义/例区分，弱标题栏） ----------
+% 用于原书 Remark 一类「依附于某个定义、但不是定理」的对象
+\definecolor{RemColor}{RGB}{74,90,114}
+\definecolor{RemBg}{RGB}{247,248,250}
+\definecolor{RemTitleBg}{RGB}{231,235,241}
+\newtcolorbox{remBox}[3][]{
+    bigbox, colback=RemBg, colframe=RemColor,
+    coltitle=RemColor, colbacktitle=RemTitleBg,
+    title={#2\ #3}, #1
+}
+\newenvironment{remark}[1][]{\begin{remBox}{注}{#1}}{\end{remBox}}
+
+% ---------- 盒子：夹注（解释 / 结论） ----------
+\newtcolorbox{expBox}{
+    noteinline, colback=ExpBg, colframe=ExpBg,
+    underlay={\draw[ExpColor,line width=2.2pt]
+        (frame.south west) -- (frame.north west);}
+}
+\newtcolorbox{conclBox}{
+    noteinline, colback=ConclBg, colframe=ConclBg,
+    underlay={\draw[ConclColor,line width=2.2pt]
+        (frame.south west) -- (frame.north west);}
+}
+
+\newenvironment{explanation}[1][]{%
+    \begin{expBox}%
+    \setlength{\parskip}{0.45em}\setlength{\parindent}{0pt}%
+    \ifstrempty{#1}{}{\textcolor{ExpColor}{\bfseries #1}\par\vspace{1pt}}%
+}{%
+    \end{expBox}%
+}
+\newenvironment{conclusion}[1][]{%
+    \begin{conclBox}%
+    \setlength{\parskip}{0.45em}\setlength{\parindent}{0pt}%
+    \ifstrempty{#1}{}{\textcolor{ConclColor}{\bfseries #1}\par\vspace{1pt}}%
+}{%
+    \end{conclBox}%
+}
+
+% ---------- 证明 ----------
+% 显式 \small：夹在定理盒（\normalsize 11pt）里时也保持与盒外证明同一字号
+\renewenvironment{proof}[1][]{%
+    \par\vspace{0.4em}\small\noindent
+    \textbf{证明\ifstrempty{#1}{}{（#1）}}\quad\ignorespaces
+}{%
+    \ifhmode\unskip\nobreak\hfill$\square$\fi
+    \ifvmode\noindent\hfill$\square$\fi
+    \par\vspace{0.25em}%
+}
+
+% ---------- 页眉页脚 ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\kaishu\ShortTitle}
+\fancyhead[R]{\small\kaishu\DocSubTitle}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{black!25}\leaders\hrule height \headrulewidth\hfill}}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[L]{\small\kaishu\ShortTitle}
+    \fancyhead[R]{\small\kaishu\DocSubTitle}
+    \fancyfoot[C]{\small\thepage}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\headrule}{\hbox to\headwidth{\color{black!25}\leaders\hrule height \headrulewidth\hfill}}
+}
+
+% ---------- 封面 ----------
+\newcommand{\MakeTitlePage}{%
+    \begin{titlepage}
+        \centering
+        \vspace*{4.5cm}
+        {\fontsize{30pt}{38pt}\selectfont\bfseries\color{ThmColor}\DocMainTitle\par}
+        \vspace{1.1cm}
+        {\fontsize{16pt}{22pt}\selectfont\DocSubTitle\par}
+        \vfill
+        {\large\kaishu\DocSource\par}
+        \vspace{0.7cm}
+        {\large\DocDate\par}
+        \vspace{2.0cm}
+    \end{titlepage}%
+}
+
+% ---------- 链接与书签 ----------
+\usepackage[unicode,colorlinks=true,linkcolor=ThmColor,citecolor=ExColor,
+            urlcolor=ConclColor,bookmarksnumbered=true,bookmarksopen=true]{hyperref}
+\hypersetup{
+    pdftitle={\DocMainTitle\ \DocSubTitle},
+    pdfauthor={\DocSource},
+    pdfcreator={XeLaTeX},
+}
+
+\numberwithin{equation}{chapter}
+\setcounter{secnumdepth}{-1}
+\setcounter{tocdepth}{2}
+\xeCJKDeclareCharClass{CJK}{"2460 -> "2473}
+
+% ---------- 全局字号：正文档 10pt，定理族 11pt（2026-11-03 三次调整 9pt→10pt） ----------
+% 定理族盒内显式 \normalsize（11pt）；其余全部 \small（10pt）——
+% 正文、定义、例题、证明、解释、结论、页眉页脚用同一个字号，只靠颜色与盒形区分层次。
+% 注意 \small 是绝对映射（11pt 类中恒为 10pt），重复套用不会继续缩小；
+% 改档时 proof 与 noteinline 里的显式字号必须同步（共三处：AtBeginDocument、proof、noteinline）。
+\AtBeginDocument{\small}
+
+%==========================================================
+%  以下由 md2tex.py 拼接
+%==========================================================
